@@ -6,17 +6,33 @@ using System.Threading.Tasks;
 
 namespace Sample
 {
+    //マージソートで、未整列の配列を整列して、3、6，9を探したい。
+
     internal class Class
     {
         static void Main(string[] args)
         {
             int[] number = { 1, 5, 3, 6, 4, 7, 8, 9, 2 };
+            var lookNumber1 = 3;
+            var lookNumber2 = 6;
+            var lookNumber3 = 9;
+
             Sort(number);
 
             for (var i = 0; i < number.Length; i++)
             {
                 Console.WriteLine(number[i]);
             }
+
+            var position = SerchNumber(number, lookNumber1);
+            Console.WriteLine("Looking For Number" + lookNumber1 + " , This Number Position" + position);
+
+            position = SerchNumber(number, lookNumber2);
+            Console.WriteLine("Looking For Number" + lookNumber2 + " , This Number Position" + position);
+
+            position = SerchNumber(number, lookNumber3);
+            Console.WriteLine("Looking For Number" + lookNumber3 + " , This Number Position" + position);
+
             while (true);
         }
 
@@ -30,13 +46,11 @@ namespace Sample
             if (left < right)
             {
                 var center = (left + right) / 2;
-                //左側
+            
                 MergeSort(array, tmp, left, center);
-
-                //右側（配列が奇数だからcenterに1を加算しとく）
+            
                 MergeSort(array, tmp, center + 1, right);
 
-                //順序づけられた配列をマージするとこ
                 Merge(array, tmp, left, center + 1, right);
 
             }
@@ -56,13 +70,11 @@ namespace Sample
                     tmp[tmpIndex++] = array[right++];
             }
 
-            //左に要素があるかどうか
             while (left <= leftEndIndex)
             {
                 tmp[tmpIndex++] = array[left++];
             }
 
-            //右に要素があるかどうか
             while (right <= rightEndIndex)
             {
                 tmp[tmpIndex++] = array[right++];
@@ -74,5 +86,32 @@ namespace Sample
                 rightEndIndex--;
             }
         }
+
+          static int SerchNumber(int[] array , int value)
+          {
+            var low = 0;
+            var high = array.Length - 1;
+            var midle = 0;
+
+            while (low <= high)
+            {
+                midle = (low + high) / 2;
+
+                if (array[midle] == value)
+                {
+                    return midle;
+                }
+                else if (array[midle] < value)
+                {
+                    low = midle + 1;
+                }
+                else if (array[midle] > value)
+                {
+                    high = midle - 1;
+                }
+            }
+            return -1;
+        }
+
     }
 }
