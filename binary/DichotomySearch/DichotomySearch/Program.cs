@@ -11,7 +11,8 @@ namespace DichotomySearch
     {
         //26と43を探す。
         //serch number "26,43"
-        static void Main(string[] args)
+        //こっちを見たい場合は、ｍメゾットをMainに変更して、Class1のMainをｍメゾットに変更してください。
+        static void m(string[] args)
         {
             int[] number = {1,8,10,13,15,19,26,28,33,39,43,47,50};
             var   lookingForNumber1 = 26;
